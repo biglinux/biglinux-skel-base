@@ -1,4 +1,4 @@
-# Maintainer: Barnabé <barnabedikartola@gmail.com>
+# Maintainer: Barnabé di Kartola <barnabedikartola@gmail.com>
 
 pkgname=biglinux-skel-base
 pkgver=$(date +%y.%m.%d)
@@ -9,13 +9,26 @@ url="https://github.com/biglinux/$pkgname"
 license=('GPL3')
 # depends=('')
 provides=("$pkgname")
-source=("git+${url}.git")
-sha256sums=('SKIP')
-
-#bigskel=$(pacman -Ss biglinux-skel- | awk -F'[/ ]' '{print $2}')
 conflicts=('big-skel')
-#"$bigskel"
+# install=${pkgname}.install
+source=("git+${url}.git")
+md5sums=('SKIP')
+
 
 package() {
-    cp -r "${srcdir}/${pkgname}/etc/" "${pkgdir}/"
+
+    InternalDir="${srcdir}/${pkgname}"
+
+    # Copy files
+    if [ -d "${InternalDir}/usr" ]; then
+        cp -r "${InternalDir}/usr" "${pkgdir}/"
+    fi
+
+    if [ -d "${InternalDir}/etc" ]; then
+        cp -r "${InternalDir}/etc" "${pkgdir}/"
+    fi
+
+    if [ -d "${InternalDir}/opt" ]; then
+        cp -r "${InternalDir}/opt" "${pkgdir}/"
+    fi
 }
