@@ -10,9 +10,11 @@ license=('GPL3')
 # depends=('')
 provides=("$pkgname")
 conflicts=('big-skel')
-# install=${pkgname}.install
 source=("git+${url}.git")
 md5sums=('SKIP')
+if [ -e "${pkgname}.install" ];then
+    install=${pkgname}.install
+fi
 
 
 package() {
